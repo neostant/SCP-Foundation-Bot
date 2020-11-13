@@ -1,0 +1,27 @@
+{
+  "name": "scp-foundation-bot",
+  "version": "0.0.1",
+  "description": "A general SCP Foundation bot.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "discord.js": "^12.4.0",
+    "request-promise": "^4.2.6",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "fs": "^0.0.2"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://github.com/CoderCrazy1/SCP-Foundation-Bot"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node"
+  ]
+}
