@@ -9,7 +9,7 @@ var throttling = {}
 var Activity = -1
 const Activities = [
   ["LISTENING", "!help"],
-  ["PLAYING", "discord.gg/scpfoundation"],
+  ["PLAYING", "https://bot.codercrazy.com"],
   ["WATCHING"], // guilds
 ]
 
