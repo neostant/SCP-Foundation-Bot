@@ -17,7 +17,9 @@ var SCPEmbed = {
 var overrides = {
   '457': 4,
   '096': 4,
-  '173': 4
+  '173': 4,
+  '910': 4,
+  '4101': 4
 }
 
 function formatText(text) {
