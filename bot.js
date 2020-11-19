@@ -3,7 +3,6 @@ const path = require("path")
 const { Client } = require('discord.js');
 const client = new Client();
 
-const prefix = '!';
 var throttling = {}
 
 var Activity = -1
@@ -13,19 +12,16 @@ const Activities = [
   ["WATCHING"], // guilds
 ]
 
-function toHumanReadableNumber (toCompress) {
+function toHumanReadableNumber(toCompress) {
     const numberAbbreviations = ['K', 'M', 'B', 'T']
     let compressedNumber = parseInt(toCompress, 10).toFixed(1)
 
-    // Count how many times the place is shifted
     let placeShift = 0
     while (compressedNumber >= 1000) {
       compressedNumber = (compressedNumber / 1000).toFixed(1)
       placeShift++
     }
 
-    // If the number was simplified, put a number abbreviation on the end
-    // Removes the decimal if it wasn't
     if (placeShift > 0) {
       compressedNumber += numberAbbreviations[placeShift - 1]
     } else {
@@ -52,9 +48,16 @@ client.on("ready", () =>{
     ChangeActivity()
 });
 client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot || message.channel.type == "dm") return;
-
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	if (message.author.bot || message.channel.type == "dm") return;
+  
+  var guildData = require(path.join(__dirname, "data.js"))["getdata"](message.guild.id)
+  if (message.content == "<@!776438111331680266> prefix") {
+    message.reply(":wave: This server's prefix is `" + guildData.prefix + "`")
+  } else if (!message.content.startsWith(guildData.prefix)) {
+    return
+  }
+  
+	const args = message.content.slice(guildData.prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
 
 	if (fs.existsSync(path.join(__dirname, "/commands/" + command + ".js"))) {
