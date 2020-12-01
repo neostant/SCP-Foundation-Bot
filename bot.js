@@ -36,15 +36,25 @@ async function GuildCount() {
   return toHumanReadableNumber(count)
 }
 
+
+async function GuildMembers() {
+  var CountArray = await client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)')
+  const num = toHumanReadableNumber(CountArray.reduce((acc, memberCount) => acc + memberCount, 0))
+  return num
+}
+
+
 async function ChangeActivity() {
+  //console.log(await GuildMembers())
   Activity += 1
   if (Activity >= Activities.length) {Activity = 0}
   var guilds = client.shard.fetchClientValues('guilds.cache.size')
-  client.user.setActivity(Activities[Activity][1] || await GuildCount() + " guilds", { type: Activities[Activity][0] || 'LISTENING'})
+  client.user.setActivity(Activities[Activity][1] || await GuildCount() + " guilds with " + await GuildMembers() + " members", { type: Activities[Activity][0] || 'LISTENING'})
   setTimeout(ChangeActivity, 15000)
 }
 
 client.on("ready", () =>{
+    //console.log("r")
     ChangeActivity()
 });
 client.on('message', message => {
